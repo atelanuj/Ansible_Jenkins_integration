@@ -8,7 +8,7 @@ pipeline{
                 }
             }
         }
-
+/*
         stage ("Coping the files to Ansible-server") {
             steps {
                 script {
@@ -18,7 +18,7 @@ pipeline{
                 }
             }
         }
-
+*/
         /*
         stage ("Executing the playbook on Ansible-server"){
             steps {
