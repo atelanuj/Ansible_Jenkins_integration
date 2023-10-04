@@ -13,7 +13,7 @@ pipeline{
             steps {
                 script {
                     sshagent(['anuj.pem']) {
-                        sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Jenkins_ansible_CiCD/to_ansible/* ubuntu@ec2-35-154-71-112.ap-south-1.compute.amazonaws.com:/root'
+                        sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Jenkins_ansible_CiCD/to_ansible/* ubuntu@ec2-35-154-71-112.ap-south-1.compute.amazonaws.com:/jenkins'
                     }
                 }
             }
