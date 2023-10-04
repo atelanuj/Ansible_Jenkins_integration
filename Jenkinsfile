@@ -13,7 +13,7 @@ pipeline{
             steps {
                 script {
                     sshagent(['anisble-jenkins']) {
-                        sh 'scp -o StrictHostKeyChecking=no $JENKINS_HOME/Jenkins_ansible_CiCD/to_ansible/* ubuntu@ec2-13-235-19-64.ap-south-1.compute.amazonaws.com:/root'
+                        sh 'scp -o StrictHostKeyChecking=no $JENKINS_HOME/Jenkins_ansible_CiCD/to_ansible/* ubuntu@ec2-35-154-71-112.ap-south-1.compute.amazonaws.com:/root'
                     }
                 }
             }
