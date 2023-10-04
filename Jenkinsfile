@@ -19,16 +19,24 @@ pipeline{
             }
         }
 
-        /*
+        
         stage ("Executing the playbook on Ansible-server"){
             steps {
                 script {
+                    echo "calling ansible playbooks"
+                    def remote = [:]
+                    remote.name = "ansible-server"
+                    remote.hots = "13.127.215.48"
+                    remote.allowAnyHosts = true
                     withCredentials([string(credentialsId: 'path_to_Private_key', variable: 'privatekey')]) {
-                        sh 'sudo ssh -i ${privatekey} ubuntu@ec2-35-154-71-112.ap-south-1.compute.amazonaws.com "ansible-playbook /jenkins/"'
+                        remote.user = root 
+                        remote.identityfile =  privatekey 
+                        sshcommand remote: remote, command: "ls -l"
                     }
+                    
                 }
             }
         }
-        */
+        
     }
 }
