@@ -26,7 +26,7 @@ pipeline{
                     echo "calling ansible playbooks"
                     def remote = [:]
                     remote.name = "ansible-server"
-                    remote.hots = "13.127.215.48"
+                    remote.hosts = "13.127.215.48"
                     remote.allowAnyHosts = true
                     withCredentials([string(credentialsId: 'path_to_Private_key', variable: 'privatekey')]) {
                         remote.user = root 
