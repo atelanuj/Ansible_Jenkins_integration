@@ -12,11 +12,8 @@ pipeline{
         stage ("Coping the files to Ansible-server") {
             steps {
                 script {
-                    /*sshagent(['anuj.pem']) {
-                        sh 'sudo scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Jenkins_ansible_CiCD/to_ansible/* root@ec2-35-154-71-112.ap-south-1.compute.amazonaws.com:/jenkins'
-                    }*/
                     withCredentials([string(credentialsId: 'path_to_Private_key', variable: 'privatekey')]) {
-                        sh 'sudo scp -o StrictHostKeyChecking=no -i ${privatekey} /var/lib/jenkins/workspace/Jenkins_ansible_CiCD/to_ansible/* ubuntu@ec2-35-154-71-112.ap-south-1.compute.amazonaws.com:/jenkins'
+                        sh 'sudo scp -o StrictHostKeyChecking=no -i ${privatekey} /var/lib/jenkins/workspace/Jenkins_ansible_CiCD/to_ansible/* ubuntu@ec2-35-154-71-112.ap-south-1.compute.amazonaws.com:/etc/ansible'
                     }
                 }
             }
@@ -26,7 +23,9 @@ pipeline{
         stage ("Executing the playbook on Ansible-server"){
             steps {
                 script {
-                    
+                    withCredentials([string(credentialsId: 'path_to_Private_key', variable: 'privatekey')]) {
+                        sh 'sudo ssh -i ${privatekey} ubuntu@ec2-35-154-71-112.ap-south-1.compute.amazonaws.com "ansible-playbook /jenkins/"'
+                    }
                 }
             }
         }
