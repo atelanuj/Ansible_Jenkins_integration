@@ -1,5 +1,9 @@
 pipeline{
     agent any
+    parameters{
+        string(name: 'Ansible_server_IP', description: "Enter the Server_IP", defaultValue: "None")
+    }
+    
     stages{
         stage ("Git Checkout") {
             steps {
@@ -13,7 +17,7 @@ pipeline{
             steps {
                 script {
                     withCredentials([string(credentialsId: 'path_to_Private_key', variable: 'privatekey')]) {
-                        sh 'sudo scp -o StrictHostKeyChecking=no -i ${privatekey} /var/lib/jenkins/workspace/Jenkins_ansible_CiCD/to_ansible/* root@13.127.215.48:/etc/ansible'
+                        sh 'sudo scp -o StrictHostKeyChecking=no -i ${privatekey} /var/lib/jenkins/workspace/Jenkins_ansible_CiCD/to_ansible/* root@${Ansible_server_IP}:/etc/ansible'
                     }
                 }
             }
@@ -26,7 +30,7 @@ pipeline{
                     echo "calling ansible playbooks"
                     def remote = [:]
                     remote.name = "ansible-server"
-                    remote.hosts = "13.127.215.48"
+                    remote.hosts = ${Ansible_server_IP}
                     remote.allowAnyHosts = true
                     withCredentials([string(credentialsId: 'path_to_Private_key', variable: 'privatekey', usernameVariable: 'root')]) {
                         remote.user = root 
