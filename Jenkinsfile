@@ -17,7 +17,7 @@ pipeline{
             steps {
                 script {
                     withCredentials([string(credentialsId: 'path_to_Private_key', variable: 'privatekey')]) {
-                        sh 'sudo scp -o StrictHostKeyChecking=no -i ${privatekey} ${JENKINS_HOME}/Jenkins_ansible_CiCD/to_ansible/* root@${Ansible_server_IP}:/etc/ansible'
+                        sh 'sudo scp -o StrictHostKeyChecking=no -i ${privatekey} /var/lib/jenkins/workspace/Jenkins_ansible_CiCD/to_ansible/* root@${Ansible_server_IP}:/etc/ansible'
                     }
                 }
             }
