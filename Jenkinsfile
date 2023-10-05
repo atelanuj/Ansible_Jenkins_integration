@@ -35,10 +35,15 @@ pipeline{
                     //remote.password = 'password'
                     remote.allowAnyHosts = true
                     withCredentials([string(credentialsId: 'path_to_Private_key', variable: 'privatekey', usernameVariable: 'root')]) {
-                        stage('Remote SSH') {
-                            sshCommand remote: remote, command: "ls -lrt"
-                            //sshScript remote: remote, script: "abc.sh"
-                        }
+                        remote.user = root
+                        remote.identityFile = ${privatekey}
+                        sshCommand remote: remote, command: "ls -lrt"
+                        /*
+                        sshScript remote: remote, script: "abc.sh"
+                        sshPut remote: remote, from: 'abc.sh', into: '.
+                        sshGet remote: remote, from: 'abc.sh', into: 'abc_get.sh', override: true
+                        sshRemove remote: remote, path: "abc.sh"
+                        */
                     }
                     
                 }
