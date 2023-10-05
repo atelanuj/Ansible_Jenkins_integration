@@ -35,7 +35,7 @@ pipeline{
                     withCredentials([string(credentialsId: 'path_to_Private_key', variable: 'privatekey', usernameVariable: 'root')]) {
                         remote.user = root 
                         remote.identityfile =  privatekey 
-                        sshcommand remote: remote, command: "ls -l"
+                        sshcommand remote: remote, command: "ls -l /"
                     }
                     
                 }
