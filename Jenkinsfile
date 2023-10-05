@@ -29,13 +29,16 @@ pipeline{
                 script {
                     echo "calling ansible playbooks"
                     def remote = [:]
-                    remote.name = "ansible-server"
-                    remote.hosts = ${Ansible_server_IP}
+                    remote.name = 'test'
+                    remote.host = ${Ansible_server_IP}
+                    remote.user = 'root'
+                    //remote.password = 'password'
                     remote.allowAnyHosts = true
                     withCredentials([string(credentialsId: 'path_to_Private_key', variable: 'privatekey', usernameVariable: 'root')]) {
-                        remote.user = root 
-                        remote.identityfile =  privatekey 
-                        sshcommand remote: remote, command: "ls -l /"
+                        stage('Remote SSH') {
+                            sshCommand remote: remote, command: "ls -lrt"
+                            //sshScript remote: remote, script: "abc.sh"
+                        }
                     }
                     
                 }
