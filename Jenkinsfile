@@ -35,7 +35,7 @@ pipeline{
                     //remote.password = 'password'
                     remote.allowAnyHosts = true
                     withCredentials([string(credentialsId: 'path_to_Private_key', variable: 'privatekey', usernameVariable: 'root')]) {
-                        remote.user = root
+                        remote.user = "root"
                         remote.identityFile = ${privatekey}
                         sshCommand remote: remote, command: "ls -lrt"
                         /*
